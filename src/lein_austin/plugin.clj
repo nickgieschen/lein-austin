@@ -49,14 +49,13 @@
       "repl-austin-browser" (repl-austin-browser project options)
       (apply f args)))) ; Continue with standard cljsbuild
 
-;; todo get this working
 ;; This will get called once when lein loads our plugin.
 (alter-meta! #'cljsbuild/cljsbuild
              (fn [meta]
                (-> meta
-                   (update-in [:subtasks] conj #'repl-austin-project)
+                   (update-in [:subtasks] into [#'repl-austin-project #'repl-austin-browser])
                    (update-in [:help-arglists]
-                              (fn [arglists] (list (conj (first arglists) 'repl-austin-project)))))))
+                              (fn [arglists] (list (into (first arglists) ['repl-austin-project 'repl-austin-browser])))))))
 
 (defn hooks []
   (robert.hooke/add-hook #'cljsbuild/cljsbuild intercept-repl-austin))
