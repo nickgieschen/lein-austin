@@ -10,6 +10,8 @@
                                        [lein-cljsbuild "0.3.2"]
                                        [lein-austin "0.1.0-SNAPSHOT"]]
                              :cljsbuild {:start-up (cemerick.austin.bcrepl-sample/run)
+                                          :austin-phantom-cmd "phantomjs"
+                                          :austin-exec-cmds ["open" "-ga" "/Applications/Google Chrome.app"]
                                          :builds [{:source-paths ["src/cljs"]
                                                    :compiler {:output-to "target/classes/public/app.js"
                                                               :optimizations :simple
